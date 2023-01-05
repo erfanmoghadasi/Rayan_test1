@@ -1,7 +1,11 @@
-import { useState } from 'react';
+/* eslint-disable import/no-unresolved */
+import { useState, useContext } from 'react';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
+
+import { UserContext } from 'src/utils/UseContext';
+
 // mocks_
 import account from '../../../_mock/account';
 
@@ -20,6 +24,10 @@ const MENU_OPTIONS = [
     label: 'Settings',
     icon: 'eva:settings-2-fill',
   },
+  {
+    label: 'RTL / LTR',
+    icon: 'eva:settings-2-fill',
+  },
 ];
 
 // ----------------------------------------------------------------------
@@ -27,12 +35,16 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
 
+  const contextValues = useContext(UserContext);
+  const { setIsAuth } = contextValues.values;
+
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
 
   const handleClose = () => {
     setOpen(null);
+    setIsAuth(false);
   };
 
   return (

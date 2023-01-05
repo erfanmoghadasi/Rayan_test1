@@ -1,8 +1,13 @@
-import { useState } from 'react';
+/* eslint-disable import/no-unresolved */
+import { useState, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
+
 // @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+
+import { UserContext } from 'src/utils/UseContext';
+
 // components
 import Iconify from '../../../components/iconify';
 
@@ -10,19 +15,29 @@ import Iconify from '../../../components/iconify';
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const contextValues = useContext(UserContext);
+  const { setIsAuth } = contextValues.values;
+
+  const [email, setEmail] = useState();
+  const [pass, setPass] = useState();
+  console.log(email, pass);
 
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClick = () => {
-    navigate('/dashboard', { replace: true });
+    if (email === 'abc@mail.com' && pass === '123456') {
+      setIsAuth(true);
+      navigate('/dashboard', { replace: true });
+    }
   };
 
   return (
     <>
       <Stack spacing={3}>
-        <TextField name="email" label="Email address" />
+        <TextField name="email" label="Email address" onChange={(e) => setEmail(e.target.value)} />
 
         <TextField
+          onChange={(e) => setPass(e.target.value)}
           name="password"
           label="Password"
           type={showPassword ? 'text' : 'password'}

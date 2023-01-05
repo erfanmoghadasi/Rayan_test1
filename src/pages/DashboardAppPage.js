@@ -1,10 +1,15 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/order */
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Grid, Container, Typography } from '@mui/material';
 // components
+// eslint-disable-next-line import/no-unresolved
+import DataTable from 'src/components/table/DataTable';
 import Iconify from '../components/iconify';
+
 // sections
 import {
   AppTasks,
@@ -33,6 +38,8 @@ export default function DashboardAppPage() {
         <Typography variant="h4" sx={{ mb: 5 }}>
           Hi, Welcome back
         </Typography>
+        {/* -------------------------- TABLE SECTION------------------------------------ */}
+        <DataTable />
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>

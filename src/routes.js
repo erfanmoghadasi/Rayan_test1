@@ -1,4 +1,6 @@
 import { Navigate, useRoutes } from 'react-router-dom';
+import { useState } from 'react';
+
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import SimpleLayout from './layouts/simple';
@@ -12,8 +14,9 @@ import DashboardAppPage from './pages/DashboardAppPage';
 
 // ----------------------------------------------------------------------
 
-export default function Router() {
-  const routes = useRoutes([
+export default function Router({isAuth}) {
+
+  const trueAuthRoutes = [
     {
       path: '/dashboard',
       element: <DashboardLayout />,
@@ -41,7 +44,19 @@ export default function Router() {
       path: '*',
       element: <Navigate to="/404" replace />,
     },
-  ]);
+  ]
+  const falseAuthRoutes = [
+    {
+      path: 'login',
+      element: <LoginPage />,
+    },
+    {
+      path: '*',
+      element: <Navigate to="/login" replace />    },
+  ]
+
+  
+  const routes = useRoutes(isAuth ? trueAuthRoutes : falseAuthRoutes) 
 
   return routes;
 }

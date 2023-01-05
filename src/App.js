@@ -1,5 +1,8 @@
+import { useState } from 'react';
 // routes
 import Router from './routes';
+// context
+import UseContextValue from './utils/UseContext';
 // theme
 import ThemeProvider from './theme';
 // components
@@ -9,11 +12,15 @@ import { StyledChart } from './components/chart';
 // ----------------------------------------------------------------------
 
 export default function App() {
+  const [isAuth, setIsAuth] = useState(true)
+
   return (
+    <UseContextValue values={{isAuth, setIsAuth}} >
     <ThemeProvider>
       <ScrollToTop />
       <StyledChart />
-      <Router />
+      <Router isAuth={isAuth} />
     </ThemeProvider>
+    </UseContextValue>
   );
 }
