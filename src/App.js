@@ -12,7 +12,7 @@ import { StyledChart } from './components/chart';
 // ----------------------------------------------------------------------
 
 export default function App() {
-  const [isAuth, setIsAuth] = useState(true)
+  const [isAuth, setIsAuth] = useState(false)
 
   return (
     <UseContextValue values={{isAuth, setIsAuth}} >
