@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { useState, useContext } from 'react';
+import useCookies from 'react-cookie/cjs/useCookies';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
@@ -38,14 +39,21 @@ export default function AccountPopover() {
   const contextValues = useContext(UserContext);
   const { setIsAuth } = contextValues.values;
 
+  const [cookie, setCookie, removeCokkie] = useCookies()
+
+
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
 
   const handleClose = () => {
+    removeCokkie('email', { path: '/' })
+    removeCokkie('pass', { path: '/' })
     setOpen(null);
     setIsAuth(false);
   };
+
+
 
   return (
     <>

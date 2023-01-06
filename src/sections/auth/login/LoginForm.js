@@ -2,6 +2,9 @@
 import { useState, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// Cookie Seter
+import { useCookies } from 'react-cookie';
+
 // @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
@@ -20,16 +23,27 @@ export default function LoginForm() {
 
   const [email, setEmail] = useState();
   const [pass, setPass] = useState();
-  console.log(email, pass);
-
+  const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const [cookie, setCookie] = useCookies()
+
+
+  
 
   const handleClick = () => {
     if (email === 'abc@mail.com' && pass === '123456') {
+      if (rememberMe){
+        setCookie('email' , email)
+        setCookie('pass' , pass)
+      }
       setIsAuth(true);
-      navigate('/dashboard', { replace: true });
+      navigate('/dashboard');
     }
   };
+
+  console.log(cookie)
+
 
   return (
     <>
@@ -54,7 +68,7 @@ export default function LoginForm() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        <Checkbox name="remember" label="Remember me" />
+        <Checkbox name="remember" label="Remember me" onClick={() => setRememberMe(!rememberMe)} />
         <Link variant="subtitle2" underline="hover">
           Forgot password?
         </Link>
